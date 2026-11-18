@@ -1,0 +1,9 @@
+A webhook endpoint keeps failing
+
+Deliveries to your {{.Data.Mode}} mode webhook endpoint {{.Data.Target}} ({{.Data.EndpointID}}) have failed since {{.Data.Since}}. The last attempt got: {{.Data.LastFailure}}.
+
+If nothing changes, Prismaport disables the endpoint at a failed attempt from {{.Data.DisableFromText}} on. Events stay in the feed (GET /v1/events) either way.
+
+Check that your server is up and answers 2xx within 10 seconds, then look at the delivery log. Any successful delivery ends the failure streak:
+{{.Data.LogURL}}
+{{template "foot" .}}

@@ -1,0 +1,7 @@
+A webhook endpoint was disabled
+
+Prismaport disabled your {{.Data.Mode}} mode webhook endpoint {{.Data.Target}} ({{.Data.EndpointID}}) on {{.Data.DisabledText}}: its deliveries had failed since {{.Data.Since}}. The last attempt got: {{.Data.LastFailure}}.
+
+It gets no deliveries until you enable it again in the dashboard. Events from the disabled period are not sent then; read them from the feed (GET /v1/events). The deliveries that were waiting can be resent from the log once the endpoint is enabled:
+{{.Data.LogURL}}
+{{template "foot" .}}

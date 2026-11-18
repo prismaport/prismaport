@@ -1,0 +1,10 @@
+Confirm your email
+
+Enter this code in the Prismaport dashboard to confirm your email address:
+
+    {{.Data.Code}}
+
+Open the dashboard: {{.Data.VerifyURL}}
+
+The code works for {{.Data.Minutes}} minutes. If you did not create a Prismaport account, ignore this email: nothing happens without the code.
+{{template "foot" .}}

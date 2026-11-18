@@ -1,0 +1,11 @@
+# Dependencies and build output. Each web app's dist/ keeps only its .gitkeep: the Go binary
+# embeds the built apps, and go:embed needs the folder to exist before any build.
+node_modules/
+/web/*/dist/*
+!/web/*/dist/.gitkeep
+
+# Local environment and test output.
+.env
+.env.*
+coverage.out
+*.test

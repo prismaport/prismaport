@@ -1,0 +1,17 @@
+Subject: Two-factor authentication will be removed from your Prismaport account
+
+Two-factor authentication will be removed
+
+Someone who knows your password asked to remove two-factor authentication from your Prismaport account.
+
+It will be removed in 72 hours, on 29 Oct 2026 at 18:04 UTC. After that, adding a wallet and creating live API keys stay locked for 48 hours. Payments keep going to your wallet.
+
+If this was not you, cancel now and change your password. Your email and password may be exposed:
+
+https://pay.prismaport.test/dashboard/cancel-2fa-removal#token=c4nc3l_token_Zr7w
+
+If this was you, there is nothing else to do. When it is removed we email you again.
+
+--
+Prismaport. Get paid in stablecoins, straight to your wallet.
+This is an automatic message about your Prismaport account. Replies are not read.

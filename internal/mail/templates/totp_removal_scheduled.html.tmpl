@@ -1,0 +1,10 @@
+{{template "head" .}}
+{{template "title" "Two-factor authentication will be removed"}}
+{{template "p" "Someone who knows your password asked to remove two-factor authentication from your Prismaport account."}}
+{{template "p" (printf "It will be removed in 72 hours, on %s. After that, adding a wallet and creating live API keys stay locked for 48 hours. Payments keep going to your wallet." .Data.RemovalText)}}
+{{template "p" "If this was not you, cancel now and change your password. Your email and password may be exposed."}}
+{{template "button" (link .Data.CancelURL "Cancel removal")}}
+{{template "p" "If this was you, there is nothing else to do. When it is removed we email you again."}}
+{{template "muted" "Button not working? Paste this address in your browser:"}}
+{{template "url" .Data.CancelURL}}
+{{template "foot" .}}

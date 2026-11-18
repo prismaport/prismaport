@@ -1,0 +1,8 @@
+/node_modules/
+/dist/*
+!/dist/.gitkeep
+/dist-mock/
+/test-results/
+/playwright-report/
+/dist-artifact/
+/e2e-flow/.run/

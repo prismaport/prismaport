@@ -1,0 +1,7 @@
+{{template "head" .}}
+{{template "title" "Confirm your email"}}
+{{template "p" "Enter this code in the Prismaport dashboard to confirm your email address."}}
+{{template "code" .Data.Code}}
+{{template "button" (link .Data.VerifyURL "Open the dashboard")}}
+{{template "muted" (printf "The code works for %d minutes. If you did not create a Prismaport account, ignore this email: nothing happens without the code." .Data.Minutes)}}
+{{template "foot" .}}

@@ -1,0 +1,6 @@
+[submodule "contracts"]
+	path = contracts
+	url = https://github.com/prismaport/prismaport-contracts-evm-v1.git
+[submodule "solana"]
+	path = solana
+	url = https://github.com/prismaport/prismaport-contracts-solana-v1.git

@@ -1,0 +1,7 @@
+{{template "head" .}}
+{{template "title" "Wrong two-factor codes on your account"}}
+{{template "p" (printf "Someone entered %d wrong two-factor codes in a row for your Prismaport account (%s), the last one on %s. A code is asked only after the correct password, or inside a signed-in session." .Data.Failures .Data.Email .Data.When)}}
+{{template "p" "If this was you, there is nothing else to do. Until a code is accepted, each further wrong code makes the next try wait longer."}}
+{{template "p" "If it was not, someone else knows your password. Reset it now, which signs out every session, then check your wallets, payout splits and API keys in the dashboard."}}
+{{template "button" (link .Data.ForgotURL "Reset your password")}}
+{{template "foot" .}}

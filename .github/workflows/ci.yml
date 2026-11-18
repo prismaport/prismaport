@@ -1,0 +1,59 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [checkout, dashboard, docs]
+    steps:
+      # The portal's tests read the contract sources and vectors in the submodules.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          submodules: true
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/${{ matrix.app }}/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: web/${{ matrix.app }}
+      - run: npm run typecheck
+        working-directory: web/${{ matrix.app }}
+      - run: npm test
+        working-directory: web/${{ matrix.app }}
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      # The Go tests read the contract vectors and the Solana IDL in the submodules.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          submodules: true
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+      # internal/api's docs tests embed the built developer portal and fail (not skip) in CI without it.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/docs/package-lock.json
+      - name: build the docs portal
+        working-directory: web/docs
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: gofmt
+        run: |
+          out=$(gofmt -l cmd internal migrations)
+          if [ -n "$out" ]; then echo "gofmt needed:"; echo "$out"; exit 1; fi
+      - run: go vet ./...
+      - run: go test ./...

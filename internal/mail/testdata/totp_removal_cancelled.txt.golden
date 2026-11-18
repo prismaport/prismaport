@@ -1,0 +1,12 @@
+Subject: The removal of two-factor authentication was cancelled
+
+The removal was cancelled
+
+The request to remove two-factor authentication from your Prismaport account (owner@example.com) was cancelled on 26 Oct 2026 at 18:04 UTC. Two-factor authentication stays on, and nothing else changed.
+
+If you did not cancel it, someone may know your password. Reset it now:
+https://pay.prismaport.test/dashboard/forgot-password
+
+--
+Prismaport. Get paid in stablecoins, straight to your wallet.
+This is an automatic message about your Prismaport account. Replies are not read.

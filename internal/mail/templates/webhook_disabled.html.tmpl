@@ -1,0 +1,6 @@
+{{template "head" .}}
+{{template "title" "A webhook endpoint was disabled"}}
+{{template "p" (printf "Prismaport disabled your %s mode webhook endpoint %s (%s) on %s: its deliveries had failed since %s. The last attempt got: %s." .Data.Mode .Data.Target .Data.EndpointID .Data.DisabledText .Data.Since .Data.LastFailure)}}
+{{template "p" "It gets no deliveries until you enable it again in the dashboard. Events from the disabled period are not sent then; read them from the feed (GET /v1/events). The deliveries that were waiting can be resent from the log once the endpoint is enabled."}}
+{{template "button" (link .Data.LogURL "Open the endpoint")}}
+{{template "foot" .}}

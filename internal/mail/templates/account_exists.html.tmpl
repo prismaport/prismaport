@@ -1,0 +1,7 @@
+{{template "head" .}}
+{{template "title" "You already have an account"}}
+{{template "p" "Someone, maybe you, tried to create a Prismaport account with this email address. You already have one, so nothing was created."}}
+{{template "p" "Sign in with your password. If you forgot it, choose Forgot password on the sign-in page."}}
+{{template "button" (link .Data.DashboardURL "Sign in")}}
+{{template "muted" "If this was not you, ignore this email. Your account has not changed."}}
+{{template "foot" .}}

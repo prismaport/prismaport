@@ -1,0 +1,11 @@
+A new way to get paid was added
+
+A wallet that receives payments was added to your Prismaport account ({{.Data.Email}}) on {{.Data.When}}.
+{{range .Data.Networks}}
+    {{.Name}}: {{.Detail}}
+{{end}}
+If you did this, there is nothing else to do.
+
+If you did not, reset your password now, then check your wallets and where each product pays in the dashboard:
+{{.Data.ForgotURL}}
+{{template "foot" .}}

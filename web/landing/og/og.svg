@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <style>
+    @font-face { font-family: 'Familjen Grotesk'; font-weight: 700; src: url('../site/fonts/familjen-grotesk-latin-700-normal.woff2') format('woff2'); }
+    @font-face { font-family: 'Onest'; font-weight: 400; src: url('../site/fonts/onest-latin-400-normal.woff2') format('woff2'); }
+    @font-face { font-family: 'Onest'; font-weight: 600; src: url('../site/fonts/onest-latin-600-normal.woff2') format('woff2'); }
+    @font-face { font-family: 'Geist Mono'; font-weight: 500; src: url('../site/fonts/geist-mono-latin-500-normal.woff2') format('woff2'); }
+    .display { font-family: 'Familjen Grotesk'; font-weight: 700; fill: #12141c; }
+    .body { font-family: 'Onest'; font-weight: 400; fill: #4e5566; }
+    .label { font-family: 'Onest'; font-weight: 600; font-size: 15px; letter-spacing: 0.9px; fill: #4e5566; }
+    .chip { font-family: 'Onest'; font-weight: 400; font-size: 20px; fill: #12141c; }
+    .soon { font-family: 'Onest'; font-weight: 400; font-size: 15px; fill: #4e5566; }
+    .amt { font-family: 'Geist Mono'; font-weight: 500; font-size: 20px; }
+  </style>
+  <rect width="1200" height="630" fill="#f4f5f8"/>
+
+  <g transform="translate(72 62) scale(0.875)" fill="none" stroke="#b0185a" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 10 L55 50 L9 50 Z" stroke-width="4"/>
+    <path d="M3 36 L43 33 L61 25" stroke-width="4"/>
+    <path d="M43 33 L61 43" stroke-width="2.2"/>
+  </g>
+  <text class="display" x="136" y="103" font-size="38" letter-spacing="-0.4">Prismaport</text>
+
+  <text class="display" font-size="60" letter-spacing="-1.5">
+    <tspan x="72" y="250">Get paid in stablecoins,</tspan>
+    <tspan x="72" y="318">straight to your wallet.</tspan>
+  </text>
+  <text class="body" font-size="27">
+    <tspan x="72" y="392">Every payment lands in your wallet.</tspan>
+    <tspan x="72" y="430">Every fee shows on-chain.</tspan>
+  </text>
+
+  <text class="label" x="72" y="540">USDC ON</text>
+  <rect x="164" y="512" width="102" height="40" rx="8" fill="#ffffff" stroke="#d7dbe3"/>
+  <image href="../site/logos/base-64.png" x="174" y="522" width="20" height="20"/>
+  <text class="chip" x="202" y="539">Base</text>
+  <rect x="278" y="512" width="196" height="40" rx="8" fill="none" stroke="#737d8c" stroke-dasharray="4 3"/>
+  <text class="soon" x="294" y="537">Solana coming later</text>
+
+  <rect x="744" y="150" width="392" height="290" rx="18" fill="#ffffff" stroke="#d7dbe3"/>
+  <text class="label" x="770" y="190">ONE PAYMENT, ONE TRANSACTION</text>
+  <g transform="translate(756 206) scale(0.52)" fill="none">
+    <path d="M20 186 L291 160" stroke="#737d8c" stroke-width="5" stroke-linecap="round"/>
+    <path d="M291 160 L429 160" stroke="#737d8c" stroke-width="2" stroke-dasharray="3 6"/>
+    <path d="M360 24 L470 248 L250 248 Z" stroke="#12141c" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M430 152 L700 70" stroke="#b0185a" stroke-width="7" stroke-linecap="round"/>
+    <path d="M432 170 L700 232" stroke="#4e5566" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text class="amt" x="768" y="284" fill="#12141c">30.00 USDC</text>
+  <text class="amt" x="1120" y="226" fill="#b0185a" text-anchor="end">29.75 USDC</text>
+  <text class="amt" x="1120" y="358" fill="#4e5566" text-anchor="end">0.25 USDC</text>
+  <text class="body" x="770" y="410" font-size="17">Fee 0.5% + 0.10, split on-chain.</text>
+</svg>

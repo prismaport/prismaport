@@ -1,0 +1,267 @@
+{
+  "comment": "Shared by internal/webhooksig (Go) and the developer portal tests in web/docs (TypeScript). Signatures computed with Python's hmac module. Times are unix seconds; tolerance_seconds defaults to 300.",
+  "compute": [
+    {
+      "name": "known vector",
+      "secret": "whsec_test",
+      "timestamp": 1761240000,
+      "body": "{\"id\":\"evt_1\"}",
+      "signature": "27b7b99a1b97b1b82cfe33170c926269604cc5e36bbf29169553b84bf6c9d06b"
+    },
+    {
+      "name": "session.paid envelope",
+      "secret": "whsec_4N8Rjv2qHUmT1nPZ3cYbXk7sWdLfGe9aQo5iVtEyBhM",
+      "timestamp": 1761240000,
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "signature": "fa80316633d9e50cde9952c4a8eb9657a998061681502aec74dc4bdc4aa0f8a3"
+    },
+    {
+      "name": "utf-8 body",
+      "secret": "whsec_test",
+      "timestamp": 1761240000,
+      "body": "{\"id\":\"evt_2\",\"data\":{\"session\":{\"metadata\":{\"note\":\"café ☕ 日本\"}}}}",
+      "signature": "5813adacdecc23c65e18df039d9a51833dd51abb618473c84b041f71b4d5143c"
+    },
+    {
+      "name": "empty body",
+      "secret": "whsec_test",
+      "timestamp": 0,
+      "body": "",
+      "signature": "a2fa7a43c6a1cf2e784eaf3327d65c65b3d2b790320ebed9aa5661bc42a8cccd"
+    },
+    {
+      "name": "legacy secret without the whsec_ prefix",
+      "secret": "3f9c1b0e7a5d42e8b6c0f1a2d3e4b5c6",
+      "timestamp": 1761240000,
+      "body": "{\"id\":\"evt_01JB0000000000000000000009\",\"type\":\"session.paid\"}",
+      "signature": "7c08544721dd6d2950324acd076f7932e5f58119ce4465f588a4baaf70bf3704"
+    }
+  ],
+  "verify": [
+    {
+      "name": "valid",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240060,
+      "result": "ok"
+    },
+    {
+      "name": "rotation: new secret",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "ok"
+    },
+    {
+      "name": "rotation: old secret",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_old",
+      "now": 1761240000,
+      "result": "ok"
+    },
+    {
+      "name": "utf-8 body",
+      "body": "{\"id\":\"evt_2\",\"data\":{\"session\":{\"metadata\":{\"note\":\"café ☕ 日本\"}}}}",
+      "header": "t=1761240000,v1=d3f7cf25ca9e434ecd4533e66bbca53b46ebdb80332ca13cdeddd2b071dd01f0",
+      "secret": "whsec_u",
+      "now": 1761240000,
+      "result": "ok"
+    },
+    {
+      "name": "edge of tolerance (past)",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240300,
+      "result": "ok"
+    },
+    {
+      "name": "edge of tolerance (future)",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761239700,
+      "result": "ok"
+    },
+    {
+      "name": "unknown scheme ignored",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v0=deadbeef,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "ok"
+    },
+    {
+      "name": "spaces around parts",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000, v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "ok"
+    },
+    {
+      "name": "custom tolerance",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240600,
+      "tolerance_seconds": 900,
+      "result": "ok"
+    },
+    {
+      "name": "wrong secret",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_other",
+      "now": 1761240000,
+      "result": "mismatch"
+    },
+    {
+      "name": "tampered body",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"2.50\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "mismatch"
+    },
+    {
+      "name": "uppercase hex",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=DCAB813CB0A05174A8975542B8074152B9A288E7438746313EB966BA28F66E86",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "mismatch"
+    },
+    {
+      "name": "stale",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_new",
+      "now": 1761240301,
+      "result": "timestamp"
+    },
+    {
+      "name": "future",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_new",
+      "now": 1761239699,
+      "result": "timestamp"
+    },
+    {
+      "name": "stale with a wrong secret",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86,v1=6853907db65fe6d27ceacf8f9b0785b4c9bf2990955bfa2626e94cbb64f5ef0a",
+      "secret": "whsec_other",
+      "now": 1761243600,
+      "result": "timestamp"
+    },
+    {
+      "name": "empty header",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "no v1",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "no t",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "v1=dcab813cb0a05174a8975542b8074152b9a288e7438746313eb966ba28f66e86",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "two t",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1,t=2,v1=abc",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "negative t",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=-1,v1=abc",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "non-numeric t",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=abc,v1=abc",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "space inside t",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t= 1761240000,v1=abc",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "part without =",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "t=1761240000,v1",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "garbage",
+      "body": "{\"id\":\"evt_01JB0000000000000000000001\",\"type\":\"session.paid\",\"created_at\":\"2025-10-23T17:20:00Z\",\"data\":{\"session\":{\"id\":\"ses_01JB0000000000000000000001\",\"status\":\"paid\",\"amount\":\"25.00\"}}}",
+      "header": "garbage",
+      "secret": "whsec_new",
+      "now": 1761240000,
+      "result": "malformed"
+    },
+    {
+      "name": "legacy secret without the whsec_ prefix still verifies",
+      "body": "{\"id\":\"evt_01JB0000000000000000000009\",\"type\":\"session.paid\"}",
+      "header": "t=1761240000,v1=7c08544721dd6d2950324acd076f7932e5f58119ce4465f588a4baaf70bf3704",
+      "secret": "3f9c1b0e7a5d42e8b6c0f1a2d3e4b5c6",
+      "now": 1761240030,
+      "result": "ok"
+    },
+    {
+      "name": "rotation from a legacy secret: the legacy secret verifies",
+      "body": "{\"id\":\"evt_01JB0000000000000000000009\",\"type\":\"session.paid\"}",
+      "header": "t=1761240000,v1=e16c1cb9b9141496937886155921a8506ff735852fa99ec83b95ad7a45295c0a,v1=7c08544721dd6d2950324acd076f7932e5f58119ce4465f588a4baaf70bf3704",
+      "secret": "3f9c1b0e7a5d42e8b6c0f1a2d3e4b5c6",
+      "now": 1761240030,
+      "result": "ok"
+    },
+    {
+      "name": "rotation from a legacy secret: the new whsec_ secret verifies",
+      "body": "{\"id\":\"evt_01JB0000000000000000000009\",\"type\":\"session.paid\"}",
+      "header": "t=1761240000,v1=e16c1cb9b9141496937886155921a8506ff735852fa99ec83b95ad7a45295c0a,v1=7c08544721dd6d2950324acd076f7932e5f58119ce4465f588a4baaf70bf3704",
+      "secret": "whsec_7Hq2WmV9pXc4Rk8sTn3Ly6Jd1Fg5Zb0A",
+      "now": 1761240030,
+      "result": "ok"
+    },
+    {
+      "name": "the whsec_ prefix is part of the key",
+      "body": "{\"id\":\"evt_01JB0000000000000000000009\",\"type\":\"session.paid\"}",
+      "header": "t=1761240000,v1=e16c1cb9b9141496937886155921a8506ff735852fa99ec83b95ad7a45295c0a",
+      "secret": "7Hq2WmV9pXc4Rk8sTn3Ly6Jd1Fg5Zb0A",
+      "now": 1761240030,
+      "result": "mismatch"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{{template "head" .}}
+{{template "title" "A webhook endpoint keeps failing"}}
+{{template "p" (printf "Deliveries to your %s mode webhook endpoint %s (%s) have failed since %s. The last attempt got: %s." .Data.Mode .Data.Target .Data.EndpointID .Data.Since .Data.LastFailure)}}
+{{template "p" (printf "If nothing changes, Prismaport disables the endpoint at a failed attempt from %s on. Events stay in the feed (GET /v1/events) either way." .Data.DisableFromText)}}
+{{template "p" "Check that your server is up and answers 2xx within 10 seconds, then look at the delivery log. Any successful delivery ends the failure streak."}}
+{{template "button" (link .Data.LogURL "Open the delivery log")}}
+{{template "foot" .}}

@@ -1,0 +1,14 @@
+Subject: A Prismaport webhook endpoint keeps failing
+
+A webhook endpoint keeps failing
+
+Deliveries to your Live mode webhook endpoint https://shop.example (we_01M5MY4JA0VHY826WNC5SSV6VN) have failed since 26 Oct 2026 at 18:04 UTC. The last attempt got: HTTP 503.
+
+If nothing changes, Prismaport disables the endpoint at a failed attempt from 31 Oct 2026 at 18:04 UTC on. Events stay in the feed (GET /v1/events) either way.
+
+Check that your server is up and answers 2xx within 10 seconds, then look at the delivery log. Any successful delivery ends the failure streak:
+https://pay.prismaport.test/dashboard/developers/webhooks/we_01M5MY4JA0VHY826WNC5SSV6VN?mode=live
+
+--
+Prismaport. Get paid in stablecoins, straight to your wallet.
+This is an automatic message about your Prismaport account. Replies are not read.

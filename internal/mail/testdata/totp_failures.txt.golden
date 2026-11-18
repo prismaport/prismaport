@@ -1,0 +1,14 @@
+Subject: Wrong two-factor codes on your Prismaport account
+
+Wrong two-factor codes on your account
+
+Someone entered 5 wrong two-factor codes in a row for your Prismaport account (owner@example.com), the last one on 26 Oct 2026 at 18:04 UTC. A code is asked only after the correct password, or inside a signed-in session.
+
+If this was you, there is nothing else to do. Until a code is accepted, each further wrong code makes the next try wait longer.
+
+If it was not, someone else knows your password. Reset it now, which signs out every session, then check your wallets, payout splits and API keys in the dashboard:
+https://pay.prismaport.test/dashboard/forgot-password
+
+--
+Prismaport. Get paid in stablecoins, straight to your wallet.
+This is an automatic message about your Prismaport account. Replies are not read.

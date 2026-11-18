@@ -1,0 +1,13 @@
+Subject: Remove two-factor authentication from your Prismaport account
+
+Remove two-factor authentication
+
+Someone said the authenticator app of your Prismaport account is lost. To ask for two-factor authentication to be removed, open this link and enter your password:
+
+https://pay.prismaport.test/dashboard/lost-authenticator/confirm#token=k3Vq9_link-token_Zr7w
+
+The link works for 30 minutes, once. If you did not ask for this, ignore this email: nothing changes.
+
+--
+Prismaport. Get paid in stablecoins, straight to your wallet.
+This is an automatic message about your Prismaport account. Replies are not read.

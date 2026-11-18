@@ -1,0 +1,6 @@
+{{template "head" .}}
+{{template "title" "The removal was cancelled"}}
+{{template "p" (printf "The request to remove two-factor authentication from your Prismaport account (%s) was cancelled on %s. Two-factor authentication stays on, and nothing else changed." .Data.Email .Data.When)}}
+{{template "p" "If you did not cancel it, someone may know your password. Reset it now."}}
+{{template "button" (link .Data.ForgotURL "Reset your password")}}
+{{template "foot" .}}

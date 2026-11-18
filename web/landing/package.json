@@ -1,0 +1,20 @@
+{
+  "name": "prismaport-landing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "og": "node scripts/og.mjs",
+    "typecheck": "tsc --noEmit",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@types/node": "22.20.5",
+    "sharp": "0.35.5",
+    "typescript": "7.0.2"
+  }
+}

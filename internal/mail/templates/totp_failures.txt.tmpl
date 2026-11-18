@@ -1,0 +1,9 @@
+Wrong two-factor codes on your account
+
+Someone entered {{.Data.Failures}} wrong two-factor codes in a row for your Prismaport account ({{.Data.Email}}), the last one on {{.Data.When}}. A code is asked only after the correct password, or inside a signed-in session.
+
+If this was you, there is nothing else to do. Until a code is accepted, each further wrong code makes the next try wait longer.
+
+If it was not, someone else knows your password. Reset it now, which signs out every session, then check your wallets, payout splits and API keys in the dashboard:
+{{.Data.ForgotURL}}
+{{template "foot" .}}

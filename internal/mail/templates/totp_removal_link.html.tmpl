@@ -1,0 +1,8 @@
+{{template "head" .}}
+{{template "title" "Remove two-factor authentication"}}
+{{template "p" "Someone said the authenticator app of your Prismaport account is lost. To ask for two-factor authentication to be removed, open this link and enter your password:"}}
+{{template "button" (link .Data.ConfirmURL "Continue")}}
+{{template "muted" (printf "The link works for %d minutes, once. If you did not ask for this, ignore this email: nothing changes." .Data.Minutes)}}
+{{template "muted" "Button not working? Paste this address in your browser:"}}
+{{template "url" .Data.ConfirmURL}}
+{{template "foot" .}}
